@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [        
+        {
+            "name": "Vinn",
+            "request": "launch",
+            "type": "al",
+            "environmentType": "OnPrem",
+            "server": "http://localhost",
+            "serverInstance": "SCHULE160",
+            "authentication": "Windows",
+            "port": 3649,
+            "startupObjectId": 50101,
+            "startupObjectType": "Page",
+            "breakOnError": true,
+            "launchBrowser": true,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true,
+            "schemaUpdateMode": "Recreate",
+            "tenant": "default"
+        }
+    ]
+}
