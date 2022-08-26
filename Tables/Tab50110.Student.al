@@ -9,6 +9,15 @@ table 50110 Student
             DataClassification = CustomerContent;
             Editable = false;
             NotBlank = true;
+
+            trigger OnValidate()
+            begin
+                if "Reg No." <> xRec."Reg No." then begin
+                    StudentSetup.Get();
+                    NoSeriesMgt.TestManual(StudentSetup."No. Series");
+                    "Reg No." := '';
+                end;
+            end;
         }
         field(2; "First Name"; Text[50])
         {
@@ -49,6 +58,12 @@ table 50110 Student
         {
             DataClassification = CustomerContent;
         }
+        field(100; "No. Series"; Code[30])
+        {
+            Caption = 'No. Series';
+            Editable = false;
+            TableRelation = "No. Series";
+        }
     }
 
     keys
@@ -60,11 +75,19 @@ table 50110 Student
     }
 
     var
-        myInt: Integer;
+        StudentSetup: Record "Student Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
 
     trigger OnInsert()
     begin
+        if "Reg No." = '' then begin
+            StudentSetup.Get();
+            StudentSetup.TestField("No. Series");
+            NoSeriesMgt.InitSeries(StudentSetup."No. Series", xRec."No. Series", 0D, "Reg No.", "No. Series");
+        end;
 
+        if "Admission Date" = 0D then
+            "Admission Date" := Today;
     end;
 
     trigger OnModify()
