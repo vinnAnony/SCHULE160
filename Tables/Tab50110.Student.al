@@ -8,7 +8,6 @@ table 50110 Student
         {
             DataClassification = CustomerContent;
             Editable = false;
-            NotBlank = true;
 
             trigger OnValidate()
             begin
