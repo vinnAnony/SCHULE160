@@ -8,6 +8,7 @@ table 50110 Student
         {
             DataClassification = CustomerContent;
             Editable = false;
+            NotBlank = true;
 
             trigger OnValidate()
             begin
@@ -21,14 +22,29 @@ table 50110 Student
         field(2; "First Name"; Text[50])
         {
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                PopulateFullName();
+            end;
         }
         field(3; "Middle Name"; Text[50])
         {
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                PopulateFullName();
+            end;
         }
         field(4; "Surname"; Text[50])
         {
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                PopulateFullName();
+            end;
         }
         field(5; "Full Name"; Text[200])
         {
@@ -42,6 +58,11 @@ table 50110 Student
         field(7; "Date Of Birth"; Date)
         {
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            begin
+                CalculateAge();
+            end;
         }
         field(8; Age; Integer)
         {
@@ -102,6 +123,21 @@ table 50110 Student
     trigger OnRename()
     begin
 
+    end;
+
+    local procedure PopulateFullName()
+    begin
+        "Full Name" := StrSubstNo('%1 %2 %3', "First Name", "Middle Name", Surname);
+    end;
+
+    local procedure CalculateAge()
+    begin
+        // AgeYears := 0;
+        // repeat
+        //     AgeYears += 1;
+        //     CheckDate := CalcDate(StrSubstNo('<+%1Y>', AgeYears), "Date Of Birth")
+        // until CheckDate >= Today;
+        Age := Round((Today - "Date Of Birth") / 365, 1, '=');
     end;
 
 }
