@@ -51,21 +51,33 @@ page 50110 Student
                 {
                     ApplicationArea = All;
                 }
+                field("Approval Status"; "Approval Status")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
 
     actions
     {
-        area(Processing)
+        area(Navigation)
         {
-            action(ActionName)
+            action("Send for Approval")
             {
                 ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                PromotedOnly = true;
+                Image = SendApprovalRequest;
 
                 trigger OnAction()
+                var
+                    StudentApprovalWF: Codeunit "Student Approval WF";
                 begin
-
+                    //Send Approval
+                    StudentApprovalWF.OnSendStudentsforApproval(Rec);
                 end;
             }
         }

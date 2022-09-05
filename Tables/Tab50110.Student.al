@@ -84,8 +84,16 @@ table 50110 Student
         field(10; Approved; Boolean)
         {
             DataClassification = CustomerContent;
+            Editable = false;
         }
-        field(100; "No. Series"; Code[30])
+        field(11; "Approval Status"; Option)
+        {
+            DataClassification = CustomerContent;
+            OptionMembers = Open,"Pending Approval",Released;
+            OptionCaption = 'Open,Pending Approval,Released';
+            Editable = false;
+        }
+        field(107; "No. Series"; Code[30])
         {
             Caption = 'No. Series';
             Editable = false;
