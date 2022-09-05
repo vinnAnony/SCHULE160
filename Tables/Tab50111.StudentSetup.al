@@ -13,6 +13,14 @@ table 50111 "Student Setup"
             DataClassification = CustomerContent;
             TableRelation = "No. Series";
         }
+        field(3; "Min. Age"; Integer)
+        {
+            DataClassification = CustomerContent;
+        }
+        field(4; "Max. Age"; Integer)
+        {
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

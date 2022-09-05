@@ -20,6 +20,14 @@ page 50111 "Student Setup"
                 {
                     ApplicationArea = All;
                 }
+                field("Min. Age"; "Min. Age")
+                {
+                    ApplicationArea = All;
+                }
+                field("Max. Age"; "Max. Age")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

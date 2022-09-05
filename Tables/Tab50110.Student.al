@@ -8,7 +8,6 @@ table 50110 Student
         {
             DataClassification = CustomerContent;
             Editable = false;
-            NotBlank = true;
 
             trigger OnValidate()
             begin
@@ -60,8 +59,16 @@ table 50110 Student
             DataClassification = CustomerContent;
 
             trigger OnValidate()
+            var
+                StudentSetup: Record "Student Setup";
             begin
                 CalculateAge();
+                StudentSetup.Get(0);
+                if Age < StudentSetup."Min. Age" then
+                    Error(MinAgeErrorTxt, StudentSetup."Min. Age");
+
+                if Age > StudentSetup."Max. Age" then
+                    Error(MaxAgeErrorTxt, StudentSetup."Max. Age");
             end;
         }
         field(8; Age; Integer)
@@ -97,6 +104,8 @@ table 50110 Student
     var
         StudentSetup: Record "Student Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
+        MaxAgeErrorTxt: Label 'Age exceeds the maximum age limit of %1';
+        MinAgeErrorTxt: Label 'Age is below the minimum age limit of %1';
 
     trigger OnInsert()
     begin
