@@ -10,7 +10,7 @@
             "serverInstance": "SCHULE160",
             "authentication": "Windows",
             "port": 3649,
-            "startupObjectId": 50101,
+            "startupObjectId": 50115,
             "startupObjectType": "Page",
             "breakOnError": true,
             "launchBrowser": true,

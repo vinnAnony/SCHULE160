@@ -1,6 +1,6 @@
 page 50111 "Student Setup"
 {
-    PageType = List;
+    PageType = Card;
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Student Setup";
@@ -10,24 +10,22 @@ page 50111 "Student Setup"
     {
         area(Content)
         {
-            repeater(GroupName)
+
+            field("Primary Key"; "Primary Key")
             {
-                field("Primary Key"; "Primary Key")
-                {
-                    ApplicationArea = All;
-                }
-                field("No. Series"; "No. Series")
-                {
-                    ApplicationArea = All;
-                }
-                field("Min. Age"; "Min. Age")
-                {
-                    ApplicationArea = All;
-                }
-                field("Max. Age"; "Max. Age")
-                {
-                    ApplicationArea = All;
-                }
+                ApplicationArea = All;
+            }
+            field("No. Series"; "No. Series")
+            {
+                ApplicationArea = All;
+            }
+            field("Min. Age"; "Min. Age")
+            {
+                ApplicationArea = All;
+            }
+            field("Max. Age"; "Max. Age")
+            {
+                ApplicationArea = All;
             }
         }
     }
