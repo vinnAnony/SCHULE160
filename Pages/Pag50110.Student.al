@@ -77,13 +77,18 @@ page 50110 Student
                     StudentApprovalWF: Codeunit "Student Approval WF";
                 begin
                     //Send Approval
-                    if StudentApprovalWF.CheckStudentApprovalStatus(Rec) then
-                        StudentApprovalWF.OnSendStudentsforApproval(Rec);
+                    if Rec.Approved then
+                        Error(AlreadyApprovedErr)
+                    else begin
+                        if StudentApprovalWF.CheckStudentApprovalStatus(Rec) then
+                            StudentApprovalWF.OnSendStudentsforApproval(Rec);
+                    end;
+
                 end;
             }
         }
     }
 
     var
-        myInt: Integer;
+        AlreadyApprovedErr: Label 'The student is already approved';
 }

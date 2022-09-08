@@ -57,7 +57,12 @@ codeunit 50110 "Student Approval WF"
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', false, false)]
     procedure RunWorkflowOnApproveStudentApproval(var ApprovalEntry: Record "Approval Entry")
+    var
+        Student: Record Student;
     begin
+        Student.Get(ApprovalEntry."Record ID to Approve");
+        Student.Approved := true;
+        Student.Modify;
         WFMngt.HandleEvent(RunWorkflowOnApproveStudentApprovalCode(), ApprovalEntry);
     end;
 
@@ -68,7 +73,12 @@ codeunit 50110 "Student Approval WF"
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
     procedure RunWorkflowOnRejectStudentApproval(var ApprovalEntry: Record "Approval Entry")
+    var
+        Student: Record Student;
     begin
+        Student.Get(ApprovalEntry."Record ID to Approve");
+        Student.Approved := false;
+        Student.Modify;
         WFMngt.HandleEvent(RunWorkflowOnRejectStudentApprovalCode(), ApprovalEntry);
     end;
 
