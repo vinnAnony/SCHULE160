@@ -77,7 +77,8 @@ page 50110 Student
                     StudentApprovalWF: Codeunit "Student Approval WF";
                 begin
                     //Send Approval
-                    StudentApprovalWF.OnSendStudentsforApproval(Rec);
+                    if StudentApprovalWF.CheckStudentApprovalStatus(Rec) then
+                        StudentApprovalWF.OnSendStudentsforApproval(Rec);
                 end;
             }
         }

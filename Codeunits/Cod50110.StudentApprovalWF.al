@@ -18,6 +18,7 @@ codeunit 50110 "Student Approval WF"
         SendForPendAppTxt: TextConst ENU = 'Status of Student changed to Pending approval', ENG = 'Status of Student changed to Pending approval';
         ReleaseStudentTxt: TextConst ENU = 'Release Student', ENG = 'Release Student';
         ReOpenStudentTxt: TextConst ENU = 'ReOpen Student', ENG = 'ReOpen Student';
+        PendingApprovalMsg: Label 'An approval request has already been sent for Student applicant %1';
 
     [IntegrationEvent(false, false)]
     procedure OnSendStudentsforApproval(var Student: Record Student)
@@ -208,6 +209,18 @@ codeunit 50110 "Student Approval WF"
                         ResponseExecuted := true;
                     end;
             end;
+    end;
+
+    procedure CheckStudentApprovalStatus(var Student: Record Student): Boolean
+    var
+        ApprovalMgt: Codeunit "Approvals Mgmt.";
+    begin
+        Student.FIND;
+
+        IF ApprovalMgt.HasOpenApprovalEntries(Student.RECORDID) THEN
+            ERROR(PendingApprovalMsg, Student."Reg No.")
+        ELSE
+            EXIT(TRUE);
     end;
 
 }
