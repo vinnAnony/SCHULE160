@@ -63,6 +63,9 @@ codeunit 50110 "Student Approval WF"
         Student.Get(ApprovalEntry."Record ID to Approve");
         Student.Approved := true;
         Student.Modify;
+
+        CreateCustomerEntry(Student);
+
         WFMngt.HandleEvent(RunWorkflowOnApproveStudentApprovalCode(), ApprovalEntry);
     end;
 
@@ -79,6 +82,7 @@ codeunit 50110 "Student Approval WF"
         Student.Get(ApprovalEntry."Record ID to Approve");
         Student.Approved := false;
         Student.Modify;
+
         WFMngt.HandleEvent(RunWorkflowOnRejectStudentApprovalCode(), ApprovalEntry);
     end;
 
@@ -231,6 +235,17 @@ codeunit 50110 "Student Approval WF"
             ERROR(PendingApprovalMsg, Student."Reg No.")
         ELSE
             EXIT(TRUE);
+    end;
+
+    procedure CreateCustomerEntry(var Student: Record Student)
+    var
+        Customer: Record Customer;
+    begin
+        Customer.Init();
+        Customer."No." := Student."Reg No.";
+        Customer.Name := Student."Full Name";
+        Customer."Customer Posting Group" := 'STUDENT';
+        Customer.Insert();
     end;
 
 }
